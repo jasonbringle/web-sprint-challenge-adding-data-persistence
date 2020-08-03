@@ -7,7 +7,7 @@ module.exports= {
     getresources,
     addProject,
     addTask,
-    getTasksFromProject
+    getTasks
 }
 
 function addResource(resource){
@@ -37,18 +37,18 @@ function getProjects(){
 }
 
 function addTask(task){
+    // console.log(task)
     const newTask = task
     return db("task")
         .insert(newTask)
         .then(addedTask => {
+            console.log(addedTask)
             return db("task").where({id:addedTask[0]})
         })
 }
 
-function getTasksFromProject(id){
-    console.log(id)
+function getTasks(){
     return db('task')
-        .join("projects", "task.id", "=", "projects.id")
-        .select("projects.name", "projects.description", "task.description", "task.notes")
-        .where({"projects.id": id})
+        .join("projects", "task.project_id", "projects.id")
+        .select("task.id",{Project_Name:"projects.name"}, "projects.description", "task.task_description", "task.notes")       
 }

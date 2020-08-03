@@ -5,7 +5,7 @@ const dbConfig = require('../data/db-config.js');
 
 const router = express.Router();
 
-router.get('/projects', (req, res) => {
+router.get('/project', (req, res) => {
     Db.getProjects()
     .then(projects => {
       res.status(200).json(projects);
@@ -66,9 +66,8 @@ router.post("/task", (req,res) => {
         })
 })
 
-router.get("/:id/task", (req,res) => {
-    const { id } = req.params
-    Db.getTasksFromProject(id)
+router.get("/task", (req,res) => {
+    Db.getTasks()
         .then(tasks => {
             res.status(200).json(tasks)
         })
