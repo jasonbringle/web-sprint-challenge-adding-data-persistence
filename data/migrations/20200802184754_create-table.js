@@ -22,6 +22,8 @@ exports.up = function(knex) {
         .references("projects.id")
         .unique()
         .notNullable()
+        .onDelete("CASCADE")
+        .onUpdate("CASCADE")
     tbl.text("task_description", 128)
         .notNullable()
     tbl.text("notes")
